@@ -1,0 +1,17 @@
+Datas:
+    Type: bowl
+    Name: Calice Royal
+    NBT: '{CustomModelData:150}'
+    Lore:
+    - Un calice fait par les dieux,
+    - permettant, si tenus par deux joueurs,
+    - de se téléporter grace au Feu de Camp.
+    Abilities:
+        Ender: false
+        Aether: false
+        Wind: false
+        Flash: false
+        Fire: false
+        Arrow: false
+    Enchant:
+    - Sharpness;2

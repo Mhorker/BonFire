@@ -1,0 +1,16 @@
+Datas:
+    Type: blaze rod
+    Name: Bâton d'Estus
+    NBT: '{CustomModelData:150}'
+    Lore:
+    - Un baton créé pour faire sombrer
+    - le feu de camp dans les Ténebres.
+    Abilities:
+        Ender: false
+        Aether: false
+        Wind: false
+        Flash: false
+        Fire: false
+        Arrow: false
+    Enchant:
+    - Knockback;2

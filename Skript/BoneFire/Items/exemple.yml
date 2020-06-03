@@ -1,0 +1,15 @@
+Datas:
+    Type: iron sword
+    NBT: '{CustomModelData:150}'
+    Attributs:
+        Enchant: true
+        Unbreak: false
+        Potion: false
+        Break: false
+    Name: '&6&n&lSword Exemple !'
+    Lore:
+    - '&7Ceci est un exemple d''épée !'
+    - '&7Editer les objets manuellement'
+    - '&7Dans le dossier /ItemCreator/Items/ !'
+    Abilities:
+        Wind: true

@@ -1,0 +1,15 @@
+Datas:
+    Type: potions of health
+    Name: Fiole d'Estus +1
+    NBT: '{CustomPotionColor:16169728}'
+    Lore:
+    - Une fiole verte émeraude, un don de l'Ame de la gardienne
+    - Elle vit pour protéger la Flamme.
+    - Et meurt pour elle s'il le faut.
+    Enchant: '[]'
+    Attributs:
+        Unbreak: true
+        Potion: false
+    AllCommands: 0
+    Commands:
+        '1': {}

@@ -1,0 +1,12 @@
+Datas:
+    Type: emerald
+    Name: Emeraude d'Estus
+    NBT: '{CustomModelData:150}'
+    Lore:
+    - Cette émeraude réagis d'une manière étrange...
+    - Je devrais sans doutes retourner au feu.
+    Enchant:
+    - Knockback;1
+    Attributs:
+        Enchant: false
+        Potion: false
