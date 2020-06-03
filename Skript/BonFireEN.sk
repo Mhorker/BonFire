@@ -205,7 +205,6 @@ on inventory click:
         
         
 command /campfire:
-    permission: break.campfire
     description: Displays plugin info
     permission message : You must have permission to execute this command !
     executable by: player
@@ -231,7 +230,7 @@ command /heart:
 
 
 command /resetheart <player=%player%>:
-    permission: heart.campfire
+    permission: admin.BonFire
     trigger:
         set the maximum health of the arg-1 to 3
 command /resetBonFire:
@@ -256,7 +255,7 @@ command /boostEstus :
 
 
 command /resetEstus:
-    permission: heart.campfire
+    permission: admin.BonFire
     trigger:
         set {boost_estus.%player%} to 0
         message "&eEstus flask level reset to 0 !"
