@@ -3,10 +3,14 @@ Plugin/Skript for Minecraft
 
 Native Minecraft Version:
 1.15
+
 Tested Minecraft Versions:
 1.15
+
 Languages Supported:
 French
+English
+
 
 Hello everyone!
 Today I present you an addon that took me a long time, and that is not finished yet!
