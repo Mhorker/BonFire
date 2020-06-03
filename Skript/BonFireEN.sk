@@ -1,0 +1,424 @@
+variables:
+    # Setting up per player variables:
+    {boost_estus.%player%} = 0 #Variable that allow for an estsus flask boost
+    {nomb_CampFire.%player%} = 0 #Variable that sets the BonFire limit per player
+    {nomb_warp.%player%} = 1 #Variable that sets the max amount of warps per BonFire
+    
+
+on load:
+    set {_files::*} to all files of directory "plugins"
+    send "&6>&e-----------------------&6<" to console
+    send " " to console
+    "%{_files::*}%" don't contain "SkBee":
+        send "&cSkBee&4 is not installed !! Please install it first !" to console
+    "%{_files::*}%" don't contain "Repuska":
+        send "&cRepuska&4 is not installed !! Please install it first !" to console
+    "%{_files::*}%" don't contain "yaml":
+        send "&cskript-yaml&4 is not installed !! Please install it first !" to console
+    "%{_files::*}%" don't contain "Skent":
+        send "&cSkent&4 is not installed !! Please install it first !" to console
+    send " " to console
+    send "&b ________  ________  ________   ________ ___  ________  _______      " to console
+    send "&b|\   __  \|\   __  \|\   ___  \|\  _____\\  \|\   __  \|\  ___ \     " to console
+    send "&b\ \  \|\ /\ \  \|\  \ \  \\ \  \ \  \__/\ \  \ \  \|\  \ \   __/|    " to console
+    send "&b \ \   __  \ \  \\\  \ \  \\ \  \ \   __\\ \  \ \   _  _\ \  \_|/__  " to console
+    send "&b  \ \  \|\  \ \  \\\  \ \  \\ \  \ \  \_| \ \  \ \  \\  \\ \  \_|\ \ " to console
+    send "&b   \ \_______\ \_______\ \__\\ \__\ \__\   \ \__\ \__\\ _\\ \_______\" to console
+    send "&b    \|_______|\|_______|\|__| \|__|\|__|    \|__|\|__|\|__|\|_______|" to console
+    send "&b                                                                     " to console
+    send " " to console
+    send "    &7Creator : &aGael##2955" to console
+    send "    &7Translated by : &aPaul_Moulefrite" to console
+    send "    &7Plugin Version : &aRelease 1.0" to console
+    send " " to console
+    send "&6Loading..." to console
+    set {&} to "&"
+    if yaml file "plugins/BonFire/config.yml" doesn't exist:
+        send "&cConfig file don't found ! create one..." to console
+        load yaml "plugins/BonFire/config.yml" as "config"
+        save yaml "config"
+    if yaml file "plugins/BonFire/Items/estus_flask.yml" doesn't exist:
+        send "&cEstus Flask item file didn't found ! Create one..." to console
+        
+        load yaml "plugins/BonFire/Items/estus_flask.yml" as "config"
+        set yaml value "Datas.Type" from "config" to "Health potion"
+        set yaml value "Datas.Name" from "config" to "Estus flask"
+        set yaml value "Datas.NBT" from "config" to "{CustomPotionColor:16169728}"
+        set yaml list "Datas.Lore" from "config" to "&7An emerald flask, from the Keeper's soul. &9&l&n1" and "&7She lives to protect the flame. &3&l&n2" and "&7And dies to protect it further. &3&l&n3"
+        save yaml "config"
+    if yaml file "plugins/BonFire/Items/estus_flask2.yml" doesn't exist:
+        send "&cEstus Flask +1 item file didn't found ! Create one..." to console
+        
+        load yaml "plugins/BonFire/Items/estus_flask2.yml" as "config"
+        set yaml value "Datas.Type" from "config" to "potion of health"
+        set yaml value "Datas.Name" from "config" to "Estus flask +1"
+        set yaml value "Datas.NBT" from "config" to "{CustomPotionColor:16169728}"
+        set yaml list "Datas.Lore" from "config" to "&7An emerald flask, from the Keeper's soul. &9&l&n1" and "&7She lives to protect the flame. &3&l&n2" and "&7And dies to protect it further. &3&l&n3"
+        save yaml "config"
+    if yaml file "plugins/BonFire/Items/estus_emerald.yml" doesn't exist:
+        send "&cEstus Emerald item file didn't found ! Create one..." to console
+        
+        load yaml "plugins/BonFire/Items/estus_emerald.yml" as "config"
+        set yaml value "Datas.Type" from "config" to "emerald"
+        set yaml value "Datas.Name" from "config" to "Estus emerald"
+        set yaml value "Datas.NBT" from "config" to "{CustomModelData:150}"
+        set yaml list "Datas.Lore" from "config" to "&7This emerald is reacting in a strange way... &9&l&n1" and "&7I should go back to the BonFire &3&l&n2"
+        save yaml "config"
+    if yaml file "plugins/BonFire/Items/estus_stick.yml" doesn't exist:
+        send "&cEstus Stick item file didn't found ! Create one..." to console
+        
+        load yaml "plugins/BonFire/Items/estus_stick.yml" as "config"
+        set yaml value "Datas.Type" from "config" to "blaze rod"
+        set yaml value "Datas.Name" from "config" to "Estus staff"
+        set yaml value "Datas.NBT" from "config" to "{CustomModelData:150}"
+        set yaml list "Datas.Lore" from "config" to "&7A staff made to engulf &9&l&n1" and "&7the BonFire into the abyss &3&l&n2"
+        save yaml "config"
+    if yaml file "plugins/BonFire/Items/royal_chalice.yml" doesn't exist:
+        send "&cRoyal chalice item file didn't found ! Create one..." to console
+        
+        load yaml "plugins/BonFire/Items/royal_chalice.yml" as "config"
+        set yaml value "Datas.Type" from "config" to "bowl"
+        set yaml value "Datas.Name" from "config" to "Royal Chalice"
+        set yaml value "Datas.NBT" from "config" to "{CustomModelData:150}"
+        set yaml list "Datas.Lore" from "config" to "&7A chalice made by the gods &9&l&n1" and "&7allowing, if held by two players &3&l&n2" and "&7to use teleportation by means of the BonFire &3&1&n3"
+        save yaml "config"
+    send "&aLoading Finished !" to console
+    send " " to console
+    send "&6>&e-----------------------&6<" to console
+    #We are regestering a new recipe for the Estus staff
+    set {_stick} to getItem("plugins/BonFire/Items/estus_stick.yml")
+    register new shaped recipe for {_stick} using emerald, air, air, air, blaze rod, air, air, air and nether wart with id "estus_stick"
+    #We are regestering a new recipe for the Royal chalice
+    set {chalice} to getItem("plugins/BonFire/Items/royal_chalice.yml")
+    register new shaped recipe for {chalice} using emerald, golden apple, emerald, golden apple, bowl, golden apple, emerald, golden apple and emerald with id "royal_chalice"
+    
+
+
+on first join:
+    #When a player first log, his max health will be set to 3 hearts
+    set the maximum health of the player to 3 hearts
+
+
+on campfire setup:
+    #Checking if player hasn't exceeded the BonFire limit (3 by default)
+    if {nomb_CampFire.%player%} >= 3 :
+        cancel event
+        message "You set 3 BonFires already !"
+        make player execute command "/setBonFire"
+    else:
+        #Add 1 to the number of set BonFire
+        add 1 to {nomb_CampFire.%player%}
+        make player execute command "/setBonFire"
+
+# When player right click on the BonFire
+on right click on campfire:
+    set {homes.%player%.location} to location of player
+    message "Home set to <grey>%location of player%<reset>"
+    # puts the item contained in the estus_stick.yml file in a variable to use it
+    set {_stick} to getItem("plugins/BonFire/Items/estus_stick.yml")
+    # puts the item contained in the royal_chalice.yml file in a variable to use it
+    set {_chalice} to getItem("plugins/BonFire/Items/royal_chalice.yml")
+    player is holding {_stick}:
+        # If player is holding an estus staff, BonFire gets replaced by air block
+        set target block to air
+        message "Sucessfully removed!"
+        # The BonFire gets substracted from the player BonFire count
+        add -1 to {nomb_CampFire.%player%}
+        add -1 to {nomb_warp.%player%}
+        make player execute command "/warpsremove"
+    player is holding emeralds:
+        # If player is holding emerald on sneak
+        player is sneaking
+        # puts the item contained in the estus_emerald.yml file in a variable to use it
+        set {_emerald} to getItem("plugins/BonFire/Items/estus_emerald.yml")
+        # Add to player inventory
+        give {_emerald} to the player
+        # Then remove emerald from player inventory
+        remove emeralds from the player
+    # Checking player hearts amount
+    # player's health != max health of player
+    # Sound
+    play sound "BLOCK_NOTE_BLOCK_HARP" at pitch 3 to player
+    # Heals the player
+    heal player by 20 hearts
+    # Effects applied to player
+    apply night vision to the player for 1 seconds
+    apply blindness to the player for 1 seconds
+    # puts the item contained in the estus_flask.yml file in a variable to use it
+    set {_item} to getItem("plugins/BonFire/Items/estus_flask.yml")
+    set {_item2} to getItem("plugins/BonFire/Items/estus_flask2.yml")
+    # Checking amount on flask in player inventory
+    set {_potion} to amount of {_item} in player's inventory
+    set {_potion2} to amount of {_item2} in player's inventory
+    if {boost_estus.%player%} >=1 :
+        if {_potion2} >= 3 :
+            message "&6You already have the max amount of flasks"
+        else: 
+            remove all {_item} from the player
+            remove all {_item2} from the player
+            remove all bottle from the player
+            give {_item2} to the player
+            give {_item2} to the player
+            give {_item2} to the player
+            # Puis on le give
+    else:
+        if {_potion} >= 3 :
+            message "&6You already have the max amount of flasks" 
+        else: 
+            remove all {_item} from the player
+            remove all bottle from the player
+            give {_item} to the player
+            give {_item} to the player
+            give {_item} to the player
+            # Then give it to player
+
+
+on left click on campfire:
+    make player execute command "/BonFire"
+
+
+on drink of potion:
+    if name of player's tool is "Estus flask +1":
+        heal player by 2 hearts
+
+
+on drop of potion:
+    set {_item} to getItem("plugins/BonFire/Items/estus_flask.yml")
+    set {_item2} to getItem("plugins/BonFire/Items/estus_flask2.yml")
+    set {_potion} to amount of {_item} in player's inventory
+    set {_potion2} to amount of {_item2} in player's inventory
+    if {_potion} >= 1 :
+        cancel event
+    if {_potion2} >= 1 :
+        cancel event
+
+
+on inventory click:
+    set {_item} to getItem("plugins/BonFire/Items/estus_flask.yml")
+    set {_item2} to getItem("plugins/BonFire/Items/estus_flask2.yml")
+    set {_potion} to amount of {_item} in player's inventory
+    set {_potion2} to amount of {_item2} in player's inventory
+    if name of the clicked slot is "Estus flask": 
+        cancel event
+    if name of the clicked slot is "Estus flask +1": 
+        cancel event
+        
+        
+command /campfire:
+    permission: break.campfire
+    description: Displays plugin info
+    permission message : You must have permission to execute this command !
+    executable by: player
+    trigger:
+        message "&6A plugin created by Gael"
+        message "&6Version : Release 1.0"
+
+
+command /heart:
+    permission: heart.campfire
+    trigger:
+        set {levels.%player's uuid%} to player's level
+        set {health.%player's uuid%} to maximum health of the player
+        if {levels.%player's uuid%} >= 15:
+            if {health.%player's uuid%} >= 20:
+                message "You already have the max amount of hearts !"
+            else:
+                set player's level to {levels.%player's uuid%}-15
+                set {_vie} to maximum health of the player
+                set the maximum health of the player to {_vie}+1
+        else:
+            message "&eYou are too low level !"
+
+
+command /resetheart <player=%player%>:
+    permission: heart.campfire
+    trigger:
+        set the maximum health of the arg-1 to 3
+command /resetBonFire:
+	permission: admin.BonFire
+	trigger:
+		set {nomb_CampFire.%player%} to 0
+
+
+command /boostEstus :
+    permission: heart.campfire
+    trigger:
+        set {_emerald} to getItem("plugins/BonFire/Items/estus_emerald.yml")
+        player is holding {_emerald}:
+            if {boost_estus.%player%} >=1:
+                message "&eYou already upgraded your estus flask !"
+            else:
+                remove {_emerald} from the player
+                add 1 to {boost_estus.%player%}
+                message "&eSuccessfully upgraded the estus flask !"
+        else:
+            message "&eYou are not holding an emerald !"
+
+
+command /resetEstus:
+    permission: heart.campfire
+    trigger:
+        set {boost_estus.%player%} to 0
+        message "&eEstus flask level reset to 0 !"
+
+
+command /tutoEmerald:
+    permission: heart.campfire
+    trigger:
+        message "&5To get an estus emerald,"
+        message "&ais quite an easy work,"
+        message "&bYou need to hold an emerald,"
+        message "&dAnd right click on the campfire while in sneak"
+        message "&cThou shallt not forget to hold the emerald"
+
+
+command /removeEstus:
+    permission: heart.campfire
+    trigger:
+        set {_item} to getItem("plugins/BonFire/Items/estus_flask.yml")
+        set {_item2} to getItem("plugins/BonFire/Items/estus_flask2.yml")
+        remove all {_item} from the player
+        remove all {_item2} from the player
+        message "No more flask !"
+
+command /chalice:
+    permission: heart.campfire
+    trigger:
+        if player is holding {chalice}:
+            message "Preparation of teleportation toward another player holding an emerald"
+            loop all players:
+                if loop-player is holding {chalice}:
+                    teleport player to loop-player
+command /home:
+	description: Teleports yourself to your home
+	permission: heart.campfire
+	executable by: players
+	trigger:
+		if {homes.%player%.location} is not set:
+			message "You did not interact with a bonfire !"
+			stop trigger
+		teleport player to {homes.%player%.location}
+command /BonFire:
+    trigger:
+        open virtual chest named "Fire menu" with 1 row to player
+        format gui slot 7 of player with grass named "&ePlugin info" with lore "&6A plugin created by Gael" and "&6Version : Release 1.0" to close 
+        format gui slot 8 of player with player head with nbt "{display:{Name:""Chest""},SkullOwner:{Id:""8c906ca5-84d7-4b3f-955b-2ab0927b88a7"",Properties:{textures:[{Value:""eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZjg0ZjU5NzEzMWJiZTI1ZGMwNThhZjg4OGNiMjk4MzFmNzk1OTliYzY3Yzk1YzgwMjkyNWNlNGFmYmEzMzJmYyJ9fX0=""}]}}}" named "&4Close" to close
+        format gui slot 0 of player with campfire named "&eTeleport to another bonfire" to close then run player command "/warps"
+        format gui slot 1 of player with bread named "&eheart" with lore "&6Add one max heart to yourself !" to close then run player command "/heart" 
+        format gui slot 2 of player with emerald named "&eEstus flask +1" with lore "&6Makes the estus flask more potent !" and "&6Cost : 1 Estus emerald" and "You must hold an emerald in your hand !" to close then run player command "/boostEstus"
+        format gui slot 3 of player with diamond pickaxe named "&eHow to get an estus emerald" with lore "Don't move i am going to tell you" to close then run player command "/tutoEmeraude"
+        format gui slot 6 of player with Barrier named "&eRemove estus flasks" with lore "In case of a bug" and "Click here to remove any estus flask from your inventory" to close then run player command "/removeEstus"
+        format gui slot 5 of player with bowl named "&eTeleport to another player" with lore "you must hold the royal chalice !" to close then run player command "/chalice"
+
+command /setBonFire [<text>]:
+	trigger:
+		if arg 1 is not set:
+			send "&cUses &6/setBonFire [WarpName] &cto set a teleportation spot!"
+		if arg 1 is set:
+			set {warpssize::*} to size of {warps::*}
+			if {warpssize::*} is less than 3:
+				if {warp.%arg 1%} is not set:
+					add arg 1 to {warps::*}
+					set {warp.%arg%} to player's location
+					send "&cTu as créé le point de téléportation : &6%arg 1% &cà &6%player's location%"
+				else:
+					set {warp.%arg%} to player's location
+					send "&cYou created a teleportation spot : &6%arg 1% &cà &6%player's location%"
+			else:
+				send "&4You already set your max amount of bonfire !"
+
+command /warp [<text>]:
+	trigger:
+		if arg 1 is not set:
+			message "Use the command /warp <The name you want to give it !>"
+		if arg 1 is set:
+			if {warp.%arg%} is set:
+				teleport player to {warp.%arg%}
+				send "&cYou were teleported to &6%arg 1%"
+			else:
+				send "&4This place doesn't exists!"
+
+command /delwarp [<text>]:
+	trigger:
+		if arg 1 is not set:
+			send "&cPlease use &6/delwarp [Warp Name] &cto delete a warp!"
+		if arg 1 is set:
+			if {warp.%arg%} is set:
+				remove arg 1 from {warps::*}
+				delete {warp.%arg%}
+				send "&cYou deleted : &6%arg 1%"
+			else:
+				send "&4This place doesn't exists!"
+
+command /warps:
+	trigger:
+		set {warpssize::*} to size of {warps::*}
+		if {warpssize::*} is greater than 0:
+			open chest with 1 rows named "&6&lTeleportation menu" to player
+			wait 2 ticks
+			set {_list} to 0
+			loop {warps::*}:
+				format slot {_list} of player with campfire named "&c%loop-value%" with lore "&7Click on me to teleport to &c%loop-value%" to close then run [execute player command "/warp %loop-value%"]
+				add 1 to {_list}
+		else:
+			send "&4You did not yet set a bonfire !"
+command /warpsremove:
+	trigger:
+		set {warpssize::*} to size of {warps::*}
+		if {warpssize::*} is greater than 0:
+			open chest with 1 rows named "&6&lTeleportation menu" to player
+			wait 2 ticks
+			set {_list} to 0
+			loop {warps::*}:
+				format slot {_list} of player with campfire named "&c%loop-value%" with lore "&7Delete &c%loop-value%" to close then run [execute player command "/delwarp %loop-value%"]
+				add 1 to {_list}
+		else:
+			send "&4You did not yet set a bonfire !"
+function getItem(yaml: text) :: item:
+    load yaml "%{_yaml}%" as "config"
+
+    set {_name} to skript-yaml value "Datas.Name" from "config"
+    set {_item} to skript-yaml value "Datas.Type" from "config"
+    set {_nbt} to skript-yaml value "Datas.NBT" from "config"
+    set {_ench::*} to skript-yaml list "Datas.Enchant" from "config"
+
+    set {_unbreak} to skript-yaml value "Datas.Attributs.Unbreak" from "config"
+    set {_enchant} to skript-yaml value "Datas.Attributs.Enchant" from "config"
+    set {_break} to skript-yaml value "Datas.Attributs.Break" from "config"
+    set {_potion} to skript-yaml value "Datas.Attributs.Potion" from "config"
+
+    set {_item} to {_item} parsed as item
+    set {_l::*} to skript-yaml list "Datas.Lore" from "config"
+
+    set {_i} to {_item} named colored {_name} with lore colored {_l::*}
+    
+    loop {_ench::*}:
+        set {_e} to loop-value
+        set {_a::*} to split "%{_e}%" at ";"
+        set {_niv} to {_a::2}
+        set {_ench} to {_a::1}
+        set {_ench} to "%{_ench}% %{_niv}%" 
+        set {_ench} to {_ench} parsed as enchantment type
+        enchant {_i} with {_ench}
+    
+    {_unbreak} is true:
+        set {_i} to unbreakable {_i}
+    {_enchant} is true:
+        set {_i} to {_i} with hidden enchants flag
+    {_break} is true:
+        set {_i} to {_i} with hidden destroy flag
+    {_potion} is true:
+        set {_i} to {_i} with hidden potion effect flag
+
+    set {_ender} to yaml value "Datas.Abilities.Ender" from "config"
+    set {_aether} to yaml value "Datas.Abilities.Aether" from "config"
+    set {_wind} to yaml value "Datas.Abilities.Wind" from "config"
+    set {_flash} to yaml value "Datas.Abilities.Flash" from "config"
+    set {_fire} to yaml value "Datas.Abilities.Fire" from "config"
+    set {_arrow} to yaml value "Datas.Abilities.Arrow" from "config"
+
+    set {_size} to size of {_l::*}
+    
+    save yaml "config"
+
+    return {_i}
